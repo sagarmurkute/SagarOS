@@ -6,9 +6,12 @@ This directory is the dedicated home for all custom software authored specifical
 
 ```text
 src/
-├── core/            # Foundation libraries, utility primitives, hardware queries
+├── core/            # Foundation system abstractions, low-level utilities (libsagar-core)
+├── libraries/       # Shared domain libraries, client SDKs, and component toolkits
 ├── services/        # System daemons, background services, D-Bus coordinators
-├── shell/           # Wayland compositor, desktop shell, panel, notifications
+├── graphics/        # Wayland compositor, display server, and protocols/
+├── desktop/         # Desktop shell components (panel, launcher, notifications, session UI)
+├── shell/           # Integrated shell environment reference
 └── apps/            # Native first-party Sagar OS desktop applications
 ```
 
