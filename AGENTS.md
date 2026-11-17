@@ -16,7 +16,7 @@ All agents (automated assistants, code generators, and LLM-driven tools) working
 
 ### 1.2 Separation of Upstream and Custom Components
 - Maintain a strict boundary between Debian upstream components and Sagar OS custom code.
-- Custom code belongs under `src/` (e.g., `src/core/`, `src/services/`, `src/shell/`, `src/apps/`).
+- Custom code belongs under `src/` (e.g., `src/core/`, `src/libraries/`, `src/services/`, `src/graphics/`, `src/desktop/`, `src/apps/`).
 - Distribution configurations, package lists, and bootstrap recipes belong under `distro/`.
 - Research documentation belongs under `research/`.
 - Do not place arbitrary, unstructured scripts in root or pollute upstream packaging namespaces.
@@ -59,12 +59,15 @@ Agents should consult this table before creating or modifying files:
 | :--- | :--- | :--- |
 | `docs/` | Architectural specs, standards, ADRs | Update specs and decisions; follow documentation guidelines |
 | `distro/` | Debian 13 manifests, rootfs configs, overlays | Only modify distribution recipes; never include compiled binaries |
-| `src/core/` | Low-level Sagar OS foundational libraries | Strictly follow modular C/Rust/Go standards (when Phase 2 opens) |
-| `src/services/` | Custom daemons, session coordinators | System services with clear D-Bus/IPC contracts |
-| `src/shell/` | Wayland compositor and shell environment | Wayland-native design only; no legacy X11 monolithic assumptions |
+| `src/core/` | Low-level Sagar OS foundational libraries | Strictly follow C17 and Rust standards in `docs/standards/` (when Phase 2 opens) |
+| `src/libraries/` | Shared domain libraries, client SDKs | Follow modular C17/Rust standards in `docs/standards/` |
+| `src/services/` | Custom daemons, session coordinators | System services with clear D-Bus/IPC contracts (`org.sagaros.*`) |
+| `src/graphics/` | Wayland display server, compositor, protocols | Pure Wayland-native design only; follow `docs/standards/` |
+| `src/desktop/` | Desktop shell components (panel, launcher, UI) | Modular UI design adhering to product specifications |
 | `src/apps/` | First-party desktop applications | Modularity, sandboxed execution model |
+| `tests/` | Automated unit, integration, security, VM tests | Adhere to testing guidelines in `docs/standards/TESTING.md` |
 | `research/kernel/` | Future independent kernel research & specs | Speculative research only; explicitly distinct from the runtime |
-| `tools/` | Image generation scripts, CI/CD, linters | Must be host-agnostic or clearly containerized |
+| `tools/` | Image generation scripts, CI/CD, linters | Must be host-agnostic or clearly containerized (Bash 5.x / Python) |
 
 ---
 
