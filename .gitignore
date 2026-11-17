@@ -1,0 +1,51 @@
+# Editor & IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Build Artifacts & Output
+/build/
+/bin/
+/out/
+/target/
+/dist/
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# OS & Image Build Outputs
+*.iso
+*.img
+*.qcow2
+*.vmdk
+*.vdi
+*.raw
+rootfs/
+initrd/
+initramfs*
+*.tar
+*.tar.gz
+*.tar.xz
+*.cpio
+
+# Temporary / Log files
+*.log
+tmp/
+*.tmp
+*.bak
+
+# Dependency Caches
+node_modules/
+__pycache__/
+*.pyc
+.cache/
+.cargo/
+Cargo.lock
