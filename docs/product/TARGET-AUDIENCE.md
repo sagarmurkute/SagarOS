@@ -73,7 +73,7 @@ The objective is to combine broad versatility—allowing users from varied backg
   - Bloated gaming overlays that introduce system instability.
 - **What Sagar OS Aims to Provide:**
   - A pure Wayland display server with tear-free composition, automatic resource prioritization that allocates full GPU/CPU power to foreground gaming surfaces, and zero background telemetry interruptions.
-  - *(Note: Sagar OS does not claim that every proprietary anti-cheat system or legacy Windows game will run natively out-of-the-box; compatibility will depend on modern Linux gaming runtimes).*
+  - *(Release Scope Note: Consistent with [RELEASE-DEFINITION.md](RELEASE-DEFINITION.md), specialized gaming compatibility edge cases, anti-cheat runtimes, and proprietary title compatibility are not guaranteed for the v1.0 initial stable release and may be addressed in subsequent post-1.0 releases).*
 
 ---
 
@@ -88,7 +88,8 @@ The objective is to combine broad versatility—allowing users from varied backg
   - Desktop environments that freeze or drop frames when rendering heavy graphical timelines.
   - Inconsistent color rendering across multiple displays.
 - **What Sagar OS Aims to Provide:**
-  - PipeWire-based audio infrastructure for predictable, low-latency audio routing, coupled with an adaptive compositor that handles heavy render tasks without locking up the desktop shell.
+  - Low-latency audio infrastructure for predictable audio routing, coupled with an adaptive compositor that handles heavy render tasks without locking up the desktop shell.
+  - *(Release Scope Note: Consistent with [RELEASE-DEFINITION.md](RELEASE-DEFINITION.md), advanced color management workflows—such as ICC color profiles and high-dynamic-range HDR metadata handling—are not guaranteed for the v1.0 initial stable release and may be addressed in subsequent post-1.0 releases).*
 
 ---
 
@@ -144,7 +145,7 @@ When a user sits down in front of a Sagar OS machine, the experience should be c
 ## 6. Accessibility & Inclusivity Considerations
 
 To ensure the operating system is universal and accessible to users of diverse abilities:
-- **Visual Usability:** Default high-contrast dark and light modes adhering to WCAG AAA standards for core UI typography, scalable font settings, and cursor sizing.
+- **Visual Usability:** Default high-contrast dark and light modes promoting high legibility and contrast as general design goals, while formal accessibility standards and certification decisions remain unresolved.
 - **Keyboard Ergonomics:** Complete keyboard navigability across all desktop shell components, allowing users with motor impairments or those who cannot use a mouse to navigate effectively.
 - **Screen Reader Hooks:** Integration with standard assistive technology frameworks (AT-SPI / Orca equivalents in modern Wayland) as a core design requirement.
 - **Non-Obscure Discovery:** Important settings and actions must have clear labels and keyboard shortcuts rather than relying purely on obscure gestures.

@@ -175,7 +175,7 @@ To maintain engineering discipline and prevent feature bloat, this document esta
 - **Core Product Responsibility:**
   - An operating system that is fundamentally usable by diverse users regardless of ability or language.
 - **Intended Capabilities:**
-  - High-contrast visual modes targeting high-contrast accessibility standards for core typography (formal certification framework pending evaluation).
+  - High-contrast visual modes designed to promote high legibility and contrast across core typography as general design goals, while formal accessibility standards and compliance certifications remain open and unresolved.
   - Scalable system fonts and cursor sizes without layout breakage.
   - Complete keyboard navigability across the desktop shell, panel, launcher, and first-party apps.
   - UTF-8 standard encoding across all filesystem, terminal, and UI surfaces.
