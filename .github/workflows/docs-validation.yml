@@ -1,0 +1,36 @@
+name: Documentation & Quality Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  markdown-links:
+    name: Verify Markdown Links & Fragments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Lychee Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Verify local repository markdown links and fragments
+          # Exclude external websites from failing the build to prevent network flakes
+          args: --offline --include-fragments "**/*.md"
+          fail: true
+
+  editorconfig-lint:
+    name: Verify File Formatting & EditorConfig
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: EditorConfig Checker
+        uses: editorconfig-checker/action-editorconfig-checker@v2

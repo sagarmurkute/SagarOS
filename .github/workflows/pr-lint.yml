@@ -1,0 +1,39 @@
+name: PR Semantic Title Lint
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+
+permissions:
+  pull-requests: read
+
+jobs:
+  validate-pr-title:
+    name: Validate Conventional Commit PR Title
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR Title Format
+        uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Types allowed in Sagar OS (defined in CONTRIBUTING.md)
+          types: |
+            feat
+            fix
+            docs
+            spec
+            refactor
+            test
+            chore
+          # Require scope to be optional or present
+          requireScope: false
+          # Error message to display when validation fails
+          subjectPattern: ^(?![A-Z]).+$
+          subjectPatternError: |
+            The subject in the PR title must start with a lowercase letter.
+            Example: feat(shell): add status bar layout
