@@ -6,6 +6,7 @@ Welcome to the documentation root for **Sagar OS**.
 
 ```text
 docs/
+├── product/         # Product vision, principles, user personas, and release tiers
 ├── adr/             # Architectural Decision Records (ADRs)
 ├── architecture/    # Deep-dive subsystem architectural blueprints
 ├── specs/           # Technical subsystem specifications
@@ -13,6 +14,7 @@ docs/
 ```
 
 ## Quick Reference
+- [Product Documentation Hub (docs/product/README.md)](product/README.md)
 - [Project Overview (README.md)](../README.md)
 - [Agent & Contributor Protocols (AGENTS.md)](../AGENTS.md)
 - [Master Specification (MASTER_SPEC.md)](../MASTER_SPEC.md)
