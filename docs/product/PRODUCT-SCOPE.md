@@ -1,85 +1,236 @@
-# Product Scope & Boundaries — Sagar OS
+# Product Scope & Functional Boundaries — Sagar OS
 
-> **Clear boundaries defining what Sagar OS builds, what is inherited from Debian 13, and what is intentionally excluded.**
+> **Defining the functional scope, boundaries, evolutionary stages, and explicit non-goals for Sagar OS as a universal desktop operating system.**
 
 ---
 
-## 1. Product Scope Matrix
+## 1. Product Scope Overview
+
+Sagar OS is designed as a **universal desktop operating system** intended to serve as a primary daily-driver platform. Its product goal is to combine the broad versatility of general-purpose desktop operating systems with the resource discipline, responsiveness, and visual polish of modern platforms, animated by an independent identity: **Beautiful, Fast, and Capable**.
+
+To maintain engineering discipline and prevent feature bloat, this document establishes clear functional boundaries across all operating system domains, categorizing items by maturity and approval level:
+- **Core Product Responsibility:** Foundational deliverables owned, authored, and supported directly by the Sagar OS project.
+- **Intended Capabilities:** Planned features targeted for early release milestones.
+- **Future Possibilities:** Forward-looking enhancements under architectural consideration.
+- **Capabilities Not Yet Approved:** Proposed ideas requiring formal product and architectural review before commitment.
+
+---
+
+## 2. Core Operating System Experience
+
+- **Core Product Responsibility:**
+  - Providing a bootable, stable desktop workstation environment built on a Debian GNU/Linux 13 ("Trixie") foundation.
+  - Ensuring fast startup, seamless authentication, and reliable session persistence.
+- **Intended Capabilities:**
+  - Fast boot-to-desktop times with quiet, unbloated startup initialization.
+  - Predictable session suspension and immediate resumption on laptop lid-open.
+  - Stateless system defaults enabling instant factory-level configuration recovery.
+- **Future Possibilities:**
+  - Dynamic user-state snapshots and transactional operating system rollback.
+- **Capabilities Not Yet Approved:**
+  - Immutable root filesystem deployment model (currently under architectural evaluation).
+
+---
+
+## 3. Desktop Environment and User Interface
+
+- **Core Product Responsibility:**
+  - Custom Wayland-native display and compositing environment with an integrated desktop shell.
+  - Original Sagar OS visual identity, high-contrast typography, and unified light/dark appearance.
+- **Intended Capabilities:**
+  - Hardware-accelerated window compositing maintaining consistent 60+ FPS without screen tearing.
+  - Desktop status panel providing active workspace indicators, clock, and hardware status indicators.
+  - Rapid keyboard-driven application launcher with instant fuzzy search.
+  - Dynamic floating window management paired with intuitive smart tiling (half-screen and quadrant snapping).
+  - Multi-monitor management supporting independent display arrangements and fractional scaling.
+  - Actionable, non-intrusive desktop notification toasts with one-click "Do Not Disturb" focus mode.
+- **Future Possibilities:**
+  - Advanced multi-finger gesture navigation for touchpads and touchscreens.
+  - Dynamic wallpaper transition engine with multi-display independence.
+- **Capabilities Not Yet Approved:**
+  - Dedicated automatic tiling mode (i3/Sway-style auto-tiling) as a native built-in feature.
+
+---
+
+## 4. System Management and Settings
+
+- **Core Product Responsibility:**
+  - A unified, centralized graphical settings application providing complete control over system configurations.
+  - Elimination of fragmented, duplicate, or legacy control panels.
+- **Intended Capabilities:**
+  - Display settings: resolution, refresh rates, scaling factor, and monitor alignment.
+  - Network and connectivity controls (Wi-Fi scanning, Ethernet, VPN profiles, Bluetooth pairing).
+  - Audio device selection, input/output volume balance, and default device routing.
+  - User accounts, passwords, and local privilege authentication.
+  - Power profiles: adaptive battery-saving, balanced, and performance management.
+- **Future Possibilities:**
+  - Backup and restore utility for personal user data and application state.
+- **Capabilities Not Yet Approved:**
+  - Cloud-synced profile settings (conflicts with the zero-telemetry, local-first policy unless purely self-hosted).
+
+---
+
+## 5. Applications and Software Ecosystem
+
+- **Core Product Responsibility:**
+  - A focused suite of essential, native first-party applications sharing a consistent design language.
+  - Secure application delivery model supporting sandboxed third-party applications.
+- **Intended Capabilities:**
+  - First-party native applications:
+    - Sagar Settings: Centralized system configuration.
+    - Sagar Terminal: Fast, GPU-accelerated terminal emulator with tab and split support.
+    - Sagar Files: Clean, tabbed file manager with dual-pane viewing and quick preview.
+    - Sagar Monitor: Real-time system resource, process, and hardware performance inspector.
+  - Isolated sandboxed execution for third-party software (Flatpak / OCI application runtimes).
+- **Future Possibilities:**
+  - Curated, graphical software discovery catalog emphasizing verified, sandboxed applications.
+- **Capabilities Not Yet Approved:**
+  - First-party creative apps (photo editor, audio workstation) or specialized office suites authored by the core team.
+
+---
+
+## 6. Gaming and Entertainment
+
+- **Core Product Responsibility:**
+  - Providing an unencumbered, low-overhead graphics pipeline that allows games and multimedia to utilize full hardware power.
+- **Intended Capabilities:**
+  - Low-latency Wayland graphics throughput with variable refresh rate (VRR / Adaptive Sync) support.
+  - Isolated Xwayland compatibility environment for legacy games and windowed titles.
+  - Automatic performance prioritization that allocates full GPU/CPU power to the foreground game window.
+  - Plug-and-play support for standard USB and Bluetooth game controllers.
+- **Future Possibilities:**
+  - Integration with cross-platform gaming runtimes and compatibility layers.
+- **Capabilities Not Yet Approved:**
+  - Proprietary anti-cheat kernel module emulation (fundamentally out-of-scope for the base OS).
+
+---
+
+## 7. Development and Productivity
+
+- **Core Product Responsibility:**
+  - A first-class environment for software engineering, research, and technical productivity.
+- **Intended Capabilities:**
+  - Native POSIX standard compliance and access to Debian 13 development packages and toolchains.
+  - High RAM availability at idle, reserving maximum memory for compiling, local containers, and IDEs.
+  - Keyboard-first interaction model minimizing friction between editor, terminal, and browser.
+- **Future Possibilities:**
+  - Integrated containerized developer environments (isolated dev containers).
+- **Capabilities Not Yet Approved:**
+  - Proprietary developer IDE authored by the core operating system team.
+
+---
+
+## 8. Security, Privacy and Reliability
+
+- **Core Product Responsibility:**
+  - An operating system that places user privacy, hardware control, and system stability above commercial data collection.
+- **Intended Capabilities:**
+  - Absolute zero telemetry policy: no tracking, no behavioral analytics, no background data transmission.
+  - Default-drop inbound firewall (`nftables`) blocking unsolicited network connections out of the box.
+  - Application sandboxing restricting access to the home directory and sensitive devices (camera/mic).
+  - Clear privilege separation: system hardware daemons run isolated from unprivileged desktop sessions.
+  - User-controlled updates: zero forced reboots during active sessions.
+- **Future Possibilities:**
+  - Hardware-backed full-disk encryption with automated TPM2 unlock.
+- **Capabilities Not Yet Approved:**
+  - Mandatory remote attestation or locked boot chains restricting user root access.
+
+---
+
+## 9. Hardware and Device Support
+
+- **Core Product Responsibility:**
+  - Tier-1 hardware enablement on contemporary 64-bit platforms utilizing Debian 13 upstream drivers.
+- **Intended Capabilities:**
+  - Primary architectures: `x86_64` (AMD64) and `aarch64` (64-bit ARM with UEFI/ACPI).
+  - Complete support for modern Intel, AMD, and Mali/Adreno graphics via upstream Mesa drivers.
+  - Plug-and-play peripheral support: external storage, USB-C docks, keyboards, mice, audio DACs.
+  - Predictable battery management and power conservation for laptops.
+- **Future Possibilities:**
+  - Specialized performance tuning profiles for handheld gaming PCs and compact mini-PCs.
+- **Capabilities Not Yet Approved:**
+  - Proprietary legacy hardware support requiring obsolete kernel drivers.
+  - Formal support for legacy 32-bit (x86) architectures.
+
+---
+
+## 10. Networking and Connectivity
+
+- **Core Product Responsibility:**
+  - Reliable, low-friction network connection management for home, campus, and enterprise environments.
+- **Intended Capabilities:**
+  - Seamless Wi-Fi scanning, connection, and captive portal detection.
+  - Wired Gigabit/10G Ethernet auto-negotiation.
+  - Bluetooth audio and input device pairing with automatic reconnection.
+  - VPN profile configuration directly from the system settings interface.
+- **Future Possibilities:**
+  - Native local peer-to-peer file transfer protocol between Sagar OS devices on the same local network.
+- **Capabilities Not Yet Approved:**
+  - Cloud-routed mesh networking managed by external commercial servers.
+
+---
+
+## 11. Accessibility and Internationalization
+
+- **Core Product Responsibility:**
+  - An operating system that is fundamentally usable by diverse users regardless of ability or language.
+- **Intended Capabilities:**
+  - High-contrast visual modes adhering to WCAG AAA standards for core typography.
+  - Scalable system fonts and cursor sizes without layout breakage.
+  - Complete keyboard navigability across the desktop shell, panel, launcher, and first-party apps.
+  - UTF-8 standard encoding across all filesystem, terminal, and UI surfaces.
+- **Future Possibilities:**
+  - Integration with modern screen readers and assistive technology APIs.
+  - Community localization infrastructure for multi-language translations.
+- **Capabilities Not Yet Approved:**
+  - AI-driven real-time speech-to-text transcription built directly into the base OS offline.
+
+---
+
+## 12. Out-of-Scope Areas (Explicit Non-Goals)
+
+To preserve focus and maintain software quality, the following areas are **explicitly out-of-scope**:
+
+1. **Monetized Telemetry & Tracking:** No advertising networks, usage tracking, or commercial telemetry will ever be included.
+2. **Bundled Bloatware:** No third-party commercial software, sponsored games, or trialware will be pre-installed.
+3. **Mandatory Cloud Accounts:** The operating system will never require an online account or cloud registration to install, boot, or operate.
+4. **Native X11 Display Server:** X11 is not supported as a native host display server. X11 compatibility is strictly confined to an isolated Xwayland sandbox.
+5. **Premature Custom Kernel in Production:** Sagar OS will not attempt to ship or fake an independent kernel in production releases. Production runs on the Debian-supported Linux LTS kernel.
+6. **Server & Headless Infrastructure Specialization:** Sagar OS is fundamentally designed as an interactive desktop workstation; cloud virtualization host or headless server profiles are not primary product targets.
+
+---
+
+## 13. Current Limitations and Dependencies
+
+1. **Debian 13 Baseline Cadence:** Release versions of upstream base libraries and Linux LTS kernels are bound to Debian 13 ("Trixie") package timelines and security updates.
+2. **Third-Party Application Compatibility:** Proprietary applications built exclusively for Windows or macOS are not guaranteed to run natively; compatibility relies on standard web runtimes, containerization, or community emulation layers.
+3. **Phase 0 Status:** The project is in Phase 0 (Specification & Architecture). No application binaries, desktop shell executables, or drivers are implemented yet.
+
+---
+
+## 14. Scope Evolution Across Phases
 
 ```mermaid
-flowchart TD
-    subgraph InScope["In-Scope (Sagar OS Core Team)"]
-        direction TB
-        CustomShell["Sagar Desktop Shell (src/desktop)"]
-        CustomCompositor["Wayland Graphics Server (src/graphics)"]
-        CustomDaemons["Sagar System Services (src/services)"]
-        CustomCore["Foundation Libraries (src/core, src/libraries)"]
-        CustomApps["First-Party Apps (src/apps)"]
-        DistroEng["Debian 13 Rootfs Harness & Overlays (distro/)"]
-    end
-
-    subgraph Upstream["Upstream Scope (Debian 13 Trixie)"]
-        direction TB
-        LinuxKernel["Linux LTS Kernel & Hardware Drivers"]
-        BaseUserspace["glibc, systemd, GNU coreutils"]
-        BasePackages["Debian Package Archive (APT)"]
-        GraphicsDrivers["Mesa, libdrm, libinput"]
-    end
-
-    subgraph OutOfScope["Out of Scope (Explicitly Excluded)"]
-        direction TB
-        AdTelemetry["Telemetry, Tracking, Cloud User Accounts"]
-        Bloatware["Third-Party Sponsored Applications"]
-        X11Server["Legacy Monolithic X11 Display Server"]
-        ProprietaryLock["Proprietary Walled-Garden App Stores"]
-    end
+flowchart LR
+    P1["Phase 1: Minimal Bootable Base"] --> P2["Phase 2: System Services & Middleware"]
+    P2 --> P3["Phase 3: Wayland Compositor & Shell"]
+    P3 --> P4["Phase 4: First-Party Apps & Daily Driver"]
+    P4 --> P5["Phase 5: Kernel Research (Quarantined)"]
 ```
 
----
-
-## 2. In-Scope Product Deliverables
-
-### 2.1 Display Server & Compositor (`src/graphics/`)
-- Pure Wayland compositor providing hardware-accelerated surface rendering, output management, fractional scaling, and multi-monitor management.
-- Wayland protocol extension definitions (`src/graphics/protocols/`).
-
-### 2.2 Desktop Shell Environment (`src/desktop/`)
-- Integrated desktop status panel with clock, system status, workspace switcher, and hardware indicators.
-- Keyboard-driven application launcher and system command runner.
-- Notification daemon and session lock screen.
-
-### 2.3 System Services & Middleware (`src/services/`)
-- Unified configuration daemon (`sagar-configd`) managing system state via D-Bus / Varlink.
-- Session supervisor (`sagar-sessiond`) managing user lifecycle, display manager integration, and polkit authorization.
-- Device power policy daemon (`sagar-powerd`).
-
-### 2.4 First-Party Native Applications (`src/apps/`)
-- Native Settings Control Center.
-- High-performance Terminal Emulator.
-- Fast, secure File Manager.
-- Lightweight System Performance & Resource Monitor.
-
-### 2.5 Distribution & Packaging (`distro/`)
-- Minimal Debian 13 root filesystem profiles and package manifests (`distro/manifests/`).
-- Bootloader configurations, Plymouth themes, and installer modules (`distro/boot/`, `distro/installer/`).
-- Debian source package control files (`distro/packages/`).
+- **Phase 1 (v0.1):** Minimal bootable Debian 13 rootfs, UEFI ISO image, console verification in QEMU.
+- **Phase 2 (v0.2):** Core middleware, D-Bus system daemons (`sagar-configd`, `sagar-sessiond`), stateless configuration defaults.
+- **Phase 3 (v0.3):** Custom Wayland compositor (`src/graphics/`), desktop shell (`src/desktop/`), multi-monitor support, status panel, launcher.
+- **Phase 4 (v0.8 – v1.0):** Native first-party apps (`src/apps/`), sandboxing, installer integration, daily-driver hardware polish.
+- **Phase 5 (Long-Term):** Capability-based microkernel research strictly in `research/kernel/`.
 
 ---
 
-## 3. Upstream Scope (Inherited from Debian 13)
+## 15. Unresolved Product-Scope Decisions Requiring Approval
 
-Sagar OS does **not** duplicate upstream engineering. We rely on Debian 13 for:
-- The Linux LTS kernel and hardware enablement drivers.
-- GNU C Library (`glibc`) and core POSIX userspace.
-- `systemd` init and service supervisor.
-- Mesa graphics drivers (RADV, ANV, Iris) and `PipeWire` audio subsystem.
-- Standard Debian APT package repository infrastructure.
+The following scope boundaries remain open for formal product owner ratification:
 
----
-
-## 4. Out-of-Scope (Explicit Non-Goals)
-
-1. **No Cloud Account Lock-in:** The operating system will never require an online account to boot, log in, or operate.
-2. **No Bundled Bloatware:** Sagar OS will not bundle sponsored games, trialware, or unrequested third-party apps.
-3. **No Native X11 Server:** Native X11 display server support is deprecated and out-of-scope. Xwayland is provided purely as an isolated compatibility fallback.
-4. **No Premature Custom Kernel:** The production distribution will not run an experimental custom kernel. Custom kernel work is strictly isolated in `research/kernel/` until Phase 5.
+1. **Immutable Root Filesystem Architecture:** Formally decide whether Sagar OS v1.0 should enforce a read-only immutable root filesystem (e.g., using Btrfs snapshots / OSTree-like model), or standard writable root with stateless `/usr/lib/sagar` defaults.
+2. **Default Third-Party Application Delivery:** Formally approve whether Flatpak is the primary recommended third-party desktop application delivery mechanism out-of-the-box.
+3. **Scope of Native Accessibility Services for v1.0:** Define whether full screen-reader integration is a mandatory gate for v1.0 GA or scheduled as an immediate post-1.0 milestone.
+4. **Scope of First-Party Software Store:** Confirm whether v1.0 will include a graphical application store GUI, or if initial application management will be handled via verified CLI tools and Flatpak portals.
