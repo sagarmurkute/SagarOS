@@ -125,10 +125,10 @@ To maintain engineering discipline and prevent feature bloat, this document esta
 - **Core Product Responsibility:**
   - An operating system that places user privacy, hardware control, and system stability above commercial data collection.
 - **Intended Capabilities:**
-  - Absolute zero telemetry policy: no tracking, no behavioral analytics, no background data transmission.
-  - Default-drop inbound firewall (`nftables`) blocking unsolicited network connections out of the box.
-  - Application sandboxing restricting access to the home directory and sensitive devices (camera/mic).
-  - Clear privilege separation: system hardware daemons run isolated from unprivileged desktop sessions.
+  - Strict privacy by default: complete absence of commercial telemetry, behavioral tracking, or unsolicited data transmission.
+  - Default-drop inbound network firewall blocking unsolicited inbound connections (technical architecture detailed in [MASTER_SPEC.md](../../MASTER_SPEC.md)).
+  - Application process sandboxing restricting access to the user home directory and sensitive peripheral devices.
+  - Clear privilege separation: system hardware daemons run isolated from unprivileged desktop user sessions.
   - User-controlled updates: zero forced reboots during active sessions.
 - **Future Possibilities:**
   - Hardware-backed full-disk encryption with automated TPM2 unlock.
@@ -143,7 +143,7 @@ To maintain engineering discipline and prevent feature bloat, this document esta
   - Tier-1 hardware enablement on contemporary 64-bit platforms utilizing Debian 13 upstream drivers.
 - **Intended Capabilities:**
   - Primary architectures: `x86_64` (AMD64) and `aarch64` (64-bit ARM with UEFI/ACPI).
-  - Complete support for modern Intel, AMD, and Mali/Adreno graphics via upstream Mesa drivers.
+  - Complete support for modern Intel, AMD, and mobile GPU hardware via upstream graphics acceleration drivers (see [MASTER_SPEC.md](../../MASTER_SPEC.md)).
   - Plug-and-play peripheral support: external storage, USB-C docks, keyboards, mice, audio DACs.
   - Predictable battery management and power conservation for laptops.
 - **Future Possibilities:**
@@ -175,7 +175,7 @@ To maintain engineering discipline and prevent feature bloat, this document esta
 - **Core Product Responsibility:**
   - An operating system that is fundamentally usable by diverse users regardless of ability or language.
 - **Intended Capabilities:**
-  - High-contrast visual modes adhering to WCAG AAA standards for core typography.
+  - High-contrast visual modes targeting high-contrast accessibility standards for core typography (formal certification framework pending evaluation).
   - Scalable system fonts and cursor sizes without layout breakage.
   - Complete keyboard navigability across the desktop shell, panel, launcher, and first-party apps.
   - UTF-8 standard encoding across all filesystem, terminal, and UI surfaces.
@@ -219,7 +219,7 @@ flowchart LR
 ```
 
 - **Phase 1 (v0.1):** Minimal bootable Debian 13 rootfs, UEFI ISO image, console verification in QEMU.
-- **Phase 2 (v0.2):** Core middleware, D-Bus system daemons (`sagar-configd`, `sagar-sessiond`), stateless configuration defaults.
+- **Phase 2 (v0.2):** Core middleware, system services (Unified Configuration Service, Session Management Service), stateless configuration defaults.
 - **Phase 3 (v0.3):** Custom Wayland compositor (`src/graphics/`), desktop shell (`src/desktop/`), multi-monitor support, status panel, launcher.
 - **Phase 4 (v0.8 – v1.0):** Native first-party apps (`src/apps/`), sandboxing, installer integration, daily-driver hardware polish.
 - **Phase 5 (Long-Term):** Capability-based microkernel research strictly in `research/kernel/`.

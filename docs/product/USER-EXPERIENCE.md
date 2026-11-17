@@ -82,8 +82,8 @@ Every interaction in Sagar OS should follow a standardized mental model. Buttons
 Motion in Sagar OS is informative, not decorative. Animations exist solely to explain spatial relationships—showing where a window minimized to, where a new workspace arrived from, or how a dialog emerged.
 
 ### Guiding Principles
-- **Physics-Inspired, Low-Duration Timing (Agreed Principle):** Animations should be short (typically 150–250ms) and use natural easing curves, never forcing the user to wait for an animation to complete before accepting input.
-- **Zero Frame Drops:** Transitions must maintain consistent, smooth frame pacing (60+ FPS on standard panels; 120+ FPS on high-refresh displays).
+- **Physics-Inspired, Low-Duration Timing (Proposed Design Guideline):** Animations are proposed to target short durations (indicative guideline: 150–250ms) with natural easing curves, never forcing the user to wait for an animation to complete before accepting input.
+- **Fluid Frame Pacing (Design Goal):** Transitions are designed to maintain consistent, smooth frame pacing (targeting 60+ FPS on standard panels; 120+ FPS on high-refresh displays).
 - **Reduced Motion Support:** A global user preference that instantly disables all non-essential visual transitions for users sensitive to motion sickness.
 
 ---
@@ -106,7 +106,17 @@ Sagar OS should feel personal and welcoming while preserving underlying system s
 The operating system treats keyboard, mouse, touchpad, and touch input as equal, first-class interaction modalities. Power users can navigate without touching a mouse, while point-and-click users enjoy generous click targets and fluid gesture navigation.
 
 ### Guiding Principles
-- **Keyboard-First Ergonomics (Agreed Principle):** Standardized `Super`-key shortcuts for launching, window tiling, workspace switching, system locking, and settings navigation.
+- **Keyboard-First Ergonomics (Agreed Principle):** Core navigation is designed to be fully executable via keyboard shortcuts. The specific key combinations below represent an *illustrative proposal subject to formal UX review and user testing*:
+
+| Action | Proposed Interaction Pattern (Subject to UX Review) |
+| :--- | :--- |
+| **Launch Application** | `Super` key opens launcher; type 2-3 letters + `Enter` |
+| **Switch Workspace** | `Super + 1..9` or `Super + Left/Right` |
+| **Window Snapping** | `Super + Arrow Keys` (half-screen, quadrant tiling) |
+| **System Settings** | `Super + ,` opens Sagar Settings |
+| **Lock Screen** | `Super + L` locks immediately |
+| **Open Terminal** | `Super + Enter` launches primary terminal instance |
+
 - **Fluid Multi-Touch Gestures (Intended Capability):** Smooth, continuous 1:1 finger tracking for workspace swiping, window grid overviews, and pinch-to-zoom in supported viewports.
 - **Generous Hit Targets:** Interactive elements must maintain minimum physical click/touch dimensions to prevent mis-clicks or precision fatigue.
 
@@ -130,7 +140,7 @@ Notifications should be informative, concise, and respectful. The operating syst
 An operating system designed from the outset to be accessible to people with varied physical, visual, and cognitive capabilities.
 
 ### Guiding Principles
-- **High-Contrast Text Standards (Agreed Principle):** Default themes must meet or exceed WCAG AAA contrast ratios for body and interface text.
+- **High-Contrast Text Standards (Design Goal):** Default themes are designed to target high legibility and contrast standards for body and interface text (formal WCAG certification framework pending evaluation).
 - **System-Wide Font and Element Scaling:** Users can scale interface text and UI elements seamlessly without layout clipping or text overlap.
 - **Full Keyboard Operability:** Every interactive surface, button, and navigation flow must be fully operable using keyboard tab-navigation and directional keys.
 - **Assistive Technology Hooks (Future Architecture):** Providing standardized hooks for screen readers and speech synthesis engines.
@@ -143,7 +153,7 @@ An operating system designed from the outset to be accessible to people with var
 Sagar OS must feel fast at all times—not merely fast in benchmark measurements, but subjectively responsive to touch, click, and keystroke.
 
 ### Guiding Principles
-- **Instant Input Acknowledgment:** The visual feedback of an interaction must occur within less than 16 milliseconds (within a single 60 Hz frame).
+- **Instant Input Acknowledgment (Proposed Performance Objective):** The target performance objective is to provide visual feedback for direct user interactions within a single display frame (<16ms on a 60 Hz display) to preserve the perception of instantaneous response.
 - **Asynchronous Execution:** Heavy background operations (disk operations, packaging, large file copying) must execute asynchronously without freezing the user interface or dropping compositor frames.
 - **Skeleton and Optimistic States (Proposed Idea):** Interfaces should display structured content boundaries immediately during data loading rather than presenting blank screens or blocking spinners.
 

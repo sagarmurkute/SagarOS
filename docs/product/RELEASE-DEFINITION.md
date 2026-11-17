@@ -88,7 +88,7 @@ To prevent release slippage, features are phased across release tiers:
 | :--- | :--- | :--- |
 | **Display & Compositor** | Wayland native composition, multi-monitor, fractional scaling, isolated Xwayland. | Advanced color management (ICC/HDR), VRR edge cases. |
 | **Desktop Shell** | Status panel, central launcher, workspace switcher, notification toasts, lock screen. | Full-screen spatial overview, dynamic widget extensions. |
-| **System Services** | `sagar-configd`, `sagar-sessiond`, `sagar-powerd`, audio routing. | Local peer-to-peer file sharing protocol. |
+| **System Services** | Unified Configuration Service, Session Management Service, Adaptive Power Service, audio routing. | Local peer-to-peer file sharing protocol. |
 | **Applications** | Settings Control Center, Terminal, File Manager, System Monitor. | First-party creative editors or specialized office suites. |
 | **Packaging & Delivery** | Minimal Debian 13 rootfs, Flatpak sandboxed application runtime support. | Curated graphical App Store GUI (planned for subsequent phase). |
 | **Kernel Exploration** | Debian-supported upstream Linux LTS kernel. | Independent microkernel prototypes (quarantined in `research/kernel/`). |
@@ -120,20 +120,20 @@ Sagar OS relies on upstream Debian 13 Linux LTS kernel and Mesa driver stacks fo
 
 ## 8. Performance Expectations
 
-Sagar OS enforces verifiable performance budgets as release criteria:
-- **Idle Memory Ceiling:** Base operating system (kernel, systemd, background daemons, and idle desktop shell) must stay within an agreed lean memory ceiling at boot.
-- **Input & Display Latency:** Keystroke-to-screen response under 16ms (within a single 60 Hz frame).
-- **Wake From Sleep:** Resumption from laptop sleep to an active, responsive lock screen in under 2 seconds.
+Sagar OS establishes the following target performance objectives:
+- **Idle Memory Ceiling:** Base operating system (kernel, systemd, background services, and idle desktop shell) must target an agreed lean memory ceiling at cold boot (numerical target pending formal calibration).
+- **Input & Display Latency (Target Performance Objective):** Target input-to-screen response within a single display frame (<16ms on a 60 Hz display).
+- **Wake From Sleep (Target Performance Objective):** Target resumption from laptop sleep to an active, responsive lock screen in under 2 seconds on Tier-1 reference hardware.
 - **Storage Footprint:** Minimal base rootfs image footprint adhering strictly to the curated Debian 13 package manifest.
 
 ---
 
 ## 9. Security and Reliability Requirements
 
-- **Zero Telemetry Invariant:** Complete absence of background telemetry, analytics collectors, tracking pings, or forced cloud sign-in services.
-- **Default-Drop Network Invariant:** Pre-configured `nftables` firewall active by default, blocking unsolicited inbound network connections.
-- **Privilege Boundary Invariant:** System-level hardware configuration daemons execute with minimal privileges; administrative tasks require explicit user authorization via polkit.
-- **Application Isolation:** First-party and third-party desktop applications execute under Landlock LSM and seccomp-bpf sandboxing profiles.
+- **Privacy Invariant:** Complete absence of commercial telemetry, analytics collectors, tracking pings, or forced cloud sign-in services.
+- **Default-Drop Network Invariant:** Default-drop inbound network firewall active by default, blocking unsolicited inbound network connections (technical architecture detailed in [MASTER_SPEC.md](../../MASTER_SPEC.md)).
+- **Privilege Boundary Invariant:** System-level hardware configuration services execute with minimal privileges; administrative tasks require explicit user authorization.
+- **Application Isolation:** First-party and third-party desktop applications execute under application process sandboxing profiles (see [MASTER_SPEC.md](../../MASTER_SPEC.md)).
 
 ---
 
